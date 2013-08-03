@@ -26,9 +26,9 @@
         public void StorePruningTest()
         {
             Store.Instance.AddItem("Name", "Marc");
-            Store.Instance.AddItem(12, "Twelve", 1);
-            Store.Instance.AddItem(TestKey, new Person(), 2);
-            Store.Instance.AddItem(person, "Person Marc", 3);
+            Store.Instance.AddItem(12, "Twelve", 5);
+            Store.Instance.AddItem(TestKey, new Person(), 10);
+            Store.Instance.AddItem(person, "Person Marc", 15);
             Debug.WriteLine("Store is initialized.");
 
             AssureAllStoreItemsExist();
@@ -104,8 +104,8 @@
             ManualResetEvent signal = new ManualResetEvent(false);
             ThreadPool.QueueUserWorkItem(x =>
             {
-                Console.WriteLine("Sleeping 70 seconds.");
-                Thread.Sleep(70000);
+                Console.WriteLine("Sleeping 6 seconds.");
+                Thread.Sleep(6000);
 
                 if (Store.Instance.TryGetValue(12, out number))
                 {
@@ -123,7 +123,7 @@
             Person p;
             ThreadPool.QueueUserWorkItem(x =>
             {
-                Thread.Sleep(60000);
+                Thread.Sleep(11000);
                 if (Store.Instance.TryGetValue(TestKey, out p))
                 {
                     Assert.Fail("Key should be expired");
@@ -140,7 +140,7 @@
             string stringPerson;
             ThreadPool.QueueUserWorkItem(x =>
             {
-                Thread.Sleep(60000);
+                Thread.Sleep(16000);
                 if (Store.Instance.TryGetValue(person, out stringPerson))
                 {
                     Assert.Fail("Key should be expired");
@@ -157,7 +157,6 @@
             string name;
             ThreadPool.QueueUserWorkItem(x =>
             {
-                Thread.Sleep(60000);
                 if (Store.Instance.TryGetValue("Name", out name))
                 {
                     if (name != "Marc")

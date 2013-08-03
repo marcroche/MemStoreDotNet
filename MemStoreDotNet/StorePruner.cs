@@ -21,7 +21,7 @@
         internal static void Initialize(Dictionary<Type, IDictionary> store)
         {
             _store = store;
-            timer = new Timer(PruneExpiredItems, null, 0, 60000);
+            timer = new Timer(PruneExpiredItems, null, 0, 1000);
         }
 
         /// <summary>
@@ -45,7 +45,7 @@
 
                                 if (storeItem != null && storeItem.StoreDuration != null)
                                 {
-                                    if (storeItem.LastAccessed.AddMinutes(storeItem.StoreDuration.Value) < DateTime.UtcNow)
+                                    if (storeItem.LastAccessed.AddSeconds(storeItem.StoreDuration.Value) < DateTime.UtcNow)
                                     {
                                         list.Add(innerItem.Key);
                                     }
