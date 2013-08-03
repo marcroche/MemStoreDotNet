@@ -32,7 +32,6 @@
             Debug.WriteLine("Store is initialized.");
 
             AssureAllStoreItemsExist();
-
             AssureStoreItemsHaveBeenPruned();
         }
 
